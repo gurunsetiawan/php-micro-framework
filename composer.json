@@ -1,0 +1,34 @@
+{
+  "name": "micro/framework",
+  "description": "Small, type-safe, PSR-compatible PHP micro-framework kernel",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.4.0",
+    "psr/http-message": "^2.0 || ^1.1",
+    "psr/http-server-handler": "^1.0",
+    "psr/http-server-middleware": "^1.0",
+    "psr/container": "^2.0 || ^1.1",
+    "psr/log": "^3.0 || ^2.0 || ^1.1",
+    "nikic/fast-route": "^1.3",
+    "nyholm/psr7": "^1.8",
+    "nyholm/psr7-server": "^1.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^11.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Micro\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Micro\\Tests\\": "tests/"
+    }
+  },
+  "config": {
+    "sort-packages": true,
+    "optimize-autoloader": true
+  }
+}
