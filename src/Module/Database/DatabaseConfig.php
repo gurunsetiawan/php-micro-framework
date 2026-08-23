@@ -17,6 +17,7 @@ final readonly class DatabaseConfig
         public string $password = '',
         public string $charset = 'utf8mb4',
         public array $options = [],
+        public ?string $dsn = null,
     ) {
     }
 
@@ -48,6 +49,7 @@ final readonly class DatabaseConfig
             return $default;
         };
 
+        $dsn = $get('DB_DSN', null);
         $host = $get('DB_HOST', '127.0.0.1') ?? '127.0.0.1';
         $port = (int) ($get('DB_PORT', '3306') ?? '3306');
         $database = $get('DB_DATABASE', $get('DB_NAME', '')) ?? '';
@@ -62,6 +64,7 @@ final readonly class DatabaseConfig
             username: $username,
             password: $password,
             charset: $charset,
+            dsn: $dsn,
         );
     }
 }

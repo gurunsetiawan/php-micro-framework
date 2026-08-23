@@ -25,6 +25,15 @@ final readonly class ConnectionFactory
      */
     public static function create(DatabaseConfig $config): PDO
     {
+        if ($config->dsn !== null && $config->dsn !== '') {
+            return self::createFromDsn(
+                dsn: $config->dsn,
+                username: $config->username !== '' ? $config->username : null,
+                password: $config->password !== '' ? $config->password : null,
+                options: $config->options,
+            );
+        }
+
         $dsnParts = [
             "host={$config->host}",
             "port={$config->port}",
@@ -37,16 +46,35 @@ final readonly class ConnectionFactory
 
         $dsn = 'mysql:' . implode(';', $dsnParts);
 
-        $options = self::DEFAULT_OPTIONS;
-        foreach ($config->options as $key => $value) {
-            $options[$key] = $value;
+        return self::createFromDsn(
+            dsn: $dsn,
+            username: $config->username,
+            password: $config->password,
+            options: $config->options,
+        );
+    }
+
+    /**
+     * Create and configure a PDO instance directly from a DSN string.
+     *
+     * @param array<int, mixed> $options
+     */
+    public static function createFromDsn(
+        string $dsn,
+        ?string $username = null,
+        ?string $password = null,
+        array $options = [],
+    ): PDO {
+        $resolvedOptions = self::DEFAULT_OPTIONS;
+        foreach ($options as $key => $value) {
+            $resolvedOptions[$key] = $value;
         }
 
         return new PDO(
             $dsn,
-            $config->username,
-            $config->password,
-            $options,
+            $username,
+            $password,
+            $resolvedOptions,
         );
     }
 }

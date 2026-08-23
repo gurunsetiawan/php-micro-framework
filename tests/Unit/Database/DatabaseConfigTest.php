@@ -20,6 +20,14 @@ final class DatabaseConfigTest extends TestCase
         $this->assertSame('', $config->password);
         $this->assertSame('utf8mb4', $config->charset);
         $this->assertSame([], $config->options);
+        $this->assertNull($config->dsn);
+    }
+
+    public function testConstructorWithDsn(): void
+    {
+        $config = new DatabaseConfig(dsn: 'sqlite::memory:');
+
+        $this->assertSame('sqlite::memory:', $config->dsn);
     }
 
     public function testFromEnvWithExplicitArray(): void
@@ -41,6 +49,20 @@ final class DatabaseConfigTest extends TestCase
         $this->assertSame('db_user', $config->username);
         $this->assertSame('secret_pass', $config->password);
         $this->assertSame('utf8mb4', $config->charset);
+        $this->assertNull($config->dsn);
+    }
+
+    public function testFromEnvWithDbDsn(): void
+    {
+        $env = [
+            'DB_DSN' => 'sqlite::memory:',
+            'DB_USERNAME' => 'ignored_user',
+        ];
+
+        $config = DatabaseConfig::fromEnv($env);
+
+        $this->assertSame('sqlite::memory:', $config->dsn);
+        $this->assertSame('ignored_user', $config->username);
     }
 
     public function testFromEnvFallbackToAliases(): void
