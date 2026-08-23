@@ -6,7 +6,7 @@ namespace Micro\Exception;
 
 use Throwable;
 
-final class NotFoundHttpException extends HttpException
+class NotFoundHttpException extends HttpException
 {
     /**
      * @param array<string, string|list<string>> $headers

@@ -6,7 +6,7 @@ namespace Micro\Exception;
 
 use Throwable;
 
-final class ForbiddenHttpException extends HttpException
+class ForbiddenHttpException extends HttpException
 {
     /**
      * @param array<string, string|list<string>> $headers

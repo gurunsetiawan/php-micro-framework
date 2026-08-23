@@ -6,7 +6,7 @@ namespace Micro\Exception;
 
 use Throwable;
 
-final class UnauthorizedHttpException extends HttpException
+class UnauthorizedHttpException extends HttpException
 {
     /**
      * @param array<string, string|list<string>> $headers

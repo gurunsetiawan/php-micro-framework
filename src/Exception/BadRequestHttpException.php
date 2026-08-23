@@ -6,7 +6,7 @@ namespace Micro\Exception;
 
 use Throwable;
 
-final class BadRequestHttpException extends HttpException
+class BadRequestHttpException extends HttpException
 {
     /**
      * @param array<string, string|list<string>> $headers

@@ -6,7 +6,7 @@ namespace Micro\Exception;
 
 use Throwable;
 
-final class MethodNotAllowedHttpException extends HttpException
+class MethodNotAllowedHttpException extends HttpException
 {
     /**
      * @param list<string> $allowedMethods
