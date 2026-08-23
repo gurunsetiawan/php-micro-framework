@@ -76,6 +76,16 @@ final class HttpExceptionInheritanceTest extends TestCase
         $this->assertSame(['Allow' => 'GET, POST'], $customException->getHeaders());
     }
 
+    public function testCanSubclassUnprocessableEntityHttpException(): void
+    {
+        $customException = new class ('Invalid input payload.') extends \Micro\Exception\UnprocessableEntityHttpException {
+        };
+
+        $this->assertInstanceOf(\Micro\Exception\UnprocessableEntityHttpException::class, $customException);
+        $this->assertSame(422, $customException->getStatusCode());
+        $this->assertSame('Invalid input payload.', $customException->getMessage());
+    }
+
     public function testErrorHandlerRendersSubclassedHttpExceptions(): void
     {
         $errorHandler = new ErrorHandlerMiddleware(debug: false);
