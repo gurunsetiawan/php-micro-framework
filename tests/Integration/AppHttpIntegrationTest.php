@@ -70,7 +70,7 @@ final class AppHttpIntegrationTest extends TestCase
 
         // Middleware
         $this->app->add(new ErrorHandlerMiddleware(debug: true));
-        $this->app->add(new CorsMiddleware(allowedOrigins: ['*']));
+        $this->app->add(new CorsMiddleware(allowedOrigins: ['*', 'http://localhost:3000']));
 
         // Health check route
         $this->app->get('/health', fn() => JsonResponse::ok(['status' => 'healthy']));

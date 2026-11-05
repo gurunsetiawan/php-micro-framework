@@ -86,6 +86,16 @@ final class HttpExceptionInheritanceTest extends TestCase
         $this->assertSame('Invalid input payload.', $customException->getMessage());
     }
 
+    public function testCanSubclassPayloadTooLargeHttpException(): void
+    {
+        $customException = new class ('Payload exceeds 5MB.') extends \Micro\Exception\PayloadTooLargeHttpException {
+        };
+
+        $this->assertInstanceOf(\Micro\Exception\PayloadTooLargeHttpException::class, $customException);
+        $this->assertSame(413, $customException->getStatusCode());
+        $this->assertSame('Payload exceeds 5MB.', $customException->getMessage());
+    }
+
     public function testErrorHandlerRendersSubclassedHttpExceptions(): void
     {
         $errorHandler = new ErrorHandlerMiddleware(debug: false);
